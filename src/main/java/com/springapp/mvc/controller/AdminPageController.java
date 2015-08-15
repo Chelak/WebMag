@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin")
 public class AdminPageController
 {
-
+    //test
     @RequestMapping( method = RequestMethod.GET)
     public String getAdminPage(ModelMap model)
     {
