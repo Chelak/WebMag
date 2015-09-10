@@ -24,7 +24,7 @@
         </div>
     </div>
 </nav>
-
+<h1>${message}</h1>
 <div class="container">
     <div class="row">
         <h1>Category List</h1>
@@ -55,7 +55,7 @@
 <div class="container">
     <div class="row">
         <c:forEach items="${categories}" var="category">
-            <button type="button" class="btn btn-primary" href="<c:url value="/category/${category.categoryId}"/>">${category.categoryName}</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='/category/${category.categoryId}'" >${category.categoryName} </button>
 
         </c:forEach>
     </div>

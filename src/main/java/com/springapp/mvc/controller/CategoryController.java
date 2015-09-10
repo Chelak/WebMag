@@ -19,18 +19,17 @@ import java.util.List;
  * Created by user on 8/4/2015.
  */
 @Controller
+@RequestMapping(value = "/category")
 public class CategoryController
 {
-    /**
-     * CategoryService object is autowired with CategoryServiceImpl
-     */
+
    @Autowired
     private CategoryService categoryService;
 
 
 
 
-    @RequestMapping(value = "category", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public ModelAndView categoryHome()
     {
        /* // set view: /category/list.jsp
@@ -42,7 +41,7 @@ public class CategoryController
        return  new ModelAndView("category/list","categories", categories);
     }
 
-    @RequestMapping(value="/category/addConfirm", method=RequestMethod.POST)
+    @RequestMapping(value="/addConfirm", method=RequestMethod.POST)
     public ModelAndView categoryAddConfirm(@ModelAttribute Category category) {
 
         // set view: redirect to /category/
@@ -57,7 +56,7 @@ public class CategoryController
 
       // {categoryId} --; path variable from hyperlink.
          // Example: /category/edit/1
-    @RequestMapping(value="/category/edit/{categoryId}", method=RequestMethod.GET)
+    @RequestMapping(value="/edit/{categoryId}", method=RequestMethod.GET)
     public ModelAndView categoryEditForm(@PathVariable Integer categoryId) {
         // set view: /category/edit.jsp
         ModelAndView modelAndView = new ModelAndView("/category/edit");
@@ -72,7 +71,7 @@ public class CategoryController
         return modelAndView;
     }
 
-    @RequestMapping(value="/category/edit/editConfirm", method=RequestMethod.POST)
+    @RequestMapping(value="/edit/editConfirm", method=RequestMethod.POST)
     public ModelAndView categoryEditConfirm(@ModelAttribute Category category) {
 
         // set view: redirect to /category/
@@ -84,7 +83,7 @@ public class CategoryController
         return modelAndView;
     }
 
-    @RequestMapping(value="/category/delete/{categoryId}", method=RequestMethod.GET)
+    @RequestMapping(value="/delete/{categoryId}", method=RequestMethod.GET)
     public ModelAndView categoryAddConfirm(@PathVariable Integer categoryId) {
 
         ModelAndView modelAndView = new ModelAndView("redirect:/category/");
@@ -94,12 +93,12 @@ public class CategoryController
         return modelAndView;
     }
 
-    @RequestMapping(value = "/category/{categoryId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{categoryId}", method = RequestMethod.GET)
     public String getProductByCategory(@PathVariable Integer categoryId, ModelMap model)
     {
 
 
-        Category getCategoryById = categoryService.findById(11);
+        Category getCategoryById = categoryService.findById(categoryId);
         model.addAttribute("categoryId", getCategoryById.getCategoryId());
         model.addAttribute("categoryName", getCategoryById.getCategoryName());
         model.addAttribute("categoryDescription", getCategoryById.getCategoryDescription());
