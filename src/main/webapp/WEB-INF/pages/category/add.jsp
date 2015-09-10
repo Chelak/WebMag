@@ -6,7 +6,7 @@
 <head>
     <title>Add new category</title>
     <link type="text/css"
-          href="<c:url value="/WEB-INF/pages/resources/css/bootstrap.css"/>" rel="stylesheet" />
+          href="<c:url value="/resources/css/bootstrap.css"/>" rel="stylesheet" />
 </head>
 <body>
 <div class="container">

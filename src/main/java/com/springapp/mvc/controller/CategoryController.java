@@ -1,6 +1,7 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.domain.Category;
+import com.springapp.mvc.domain.Product;
 import com.springapp.mvc.service.CategoryService;
 import com.springapp.mvc.service.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,13 @@ public class CategoryController
     /**
      * CategoryService object is autowired with CategoryServiceImpl
      */
-   // @Autowired
-    private CategoryService categoryService = new CategoryServiceImpl();
+   @Autowired
+    private CategoryService categoryService;
 
 
 
 
-    @RequestMapping(value = "/category/", method = RequestMethod.GET)
+    @RequestMapping(value = "category", method = RequestMethod.GET)
     public ModelAndView categoryHome()
     {
        /* // set view: /category/list.jsp
@@ -92,4 +93,19 @@ public class CategoryController
 
         return modelAndView;
     }
+
+    @RequestMapping(value = "/category/{categoryId}", method = RequestMethod.GET)
+    public String getProductByCategory(@PathVariable Integer categoryId, ModelMap model)
+    {
+
+
+        Category getCategoryById = categoryService.findById(11);
+        model.addAttribute("categoryId", getCategoryById.getCategoryId());
+        model.addAttribute("categoryName", getCategoryById.getCategoryName());
+        model.addAttribute("categoryDescription", getCategoryById.getCategoryDescription());
+
+        return "category/list";
+
+    }
 }
+

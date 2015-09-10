@@ -18,7 +18,7 @@
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving
    up static resources in the ${webappRoot}/resources directory -->
-    <mvc:resources mapping="/resource/**" location="/resources/" cache-period="31556926"/>
+    <mvc:resources mapping="/resource/**" location="/"/>
 
      <!-- JDBC setting -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
