@@ -1,13 +1,14 @@
 package com.springapp.mvc.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by user on 8/4/2015.
  */
 @Entity
 @Table(name="product")
-public class Product
+public class Product implements Serializable
 {
 
     @Id
@@ -27,12 +28,7 @@ public class Product
     @Column(name="productDescription")
     private String productDescription;
 
-   /**
-    *    1. FetchType.LAZY -- LAZY means the data will be loaded if needed.
-    *    2. Each product always have a 'category'. Hence, we use a property with type 'Category'.
-    *    In Category.java, this properties is called by using : mappedBy = "category";
-    *    3. @JoinColumn(name="categoryId") -- defines foreign key in the table.
-    */
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="categoryId")
     private Category category;
@@ -108,5 +104,33 @@ public class Product
                 ", productDescription='" + productDescription + '\'' +
                 ", category=" + category +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+
+        Product product = (Product) o;
+
+        if (getProductStock() != product.getProductStock()) return false;
+        if (Double.compare(product.getProductPrice(), getProductPrice()) != 0) return false;
+        if (!getProductName().equals(product.getProductName())) return false;
+        if (!getProductDescription().equals(product.getProductDescription())) return false;
+        return getCategory().equals(product.getCategory());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = getProductName().hashCode();
+        result = 31 * result + getProductStock();
+        temp = Double.doubleToLongBits(getProductPrice());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + getProductDescription().hashCode();
+        result = 31 * result + getCategory().hashCode();
+        return result;
     }
 }

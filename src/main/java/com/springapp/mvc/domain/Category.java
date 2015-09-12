@@ -3,6 +3,7 @@ package com.springapp.mvc.domain;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="category")
-public class Category
+public class Category implements Serializable
 {
     @Id
     @GeneratedValue
@@ -68,5 +69,26 @@ public class Category
                 ", categoryDescription='" + categoryDescription + '\'' +
                 ", products=" + products +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Category)) return false;
+
+        Category category = (Category) o;
+
+        if (!getCategoryName().equals(category.getCategoryName())) return false;
+        if (!getCategoryDescription().equals(category.getCategoryDescription())) return false;
+        return !(getProducts() != null ? !getProducts().equals(category.getProducts()) : category.getProducts() != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getCategoryName().hashCode();
+        result = 31 * result + getCategoryDescription().hashCode();
+        result = 31 * result + (getProducts() != null ? getProducts().hashCode() : 0);
+        return result;
     }
 }
